@@ -21,6 +21,7 @@ Purrfect - хаб для владельцев домашних животных,
 * Язык программирования: Python 3.12+
 * Backend (Api): Django Rest Framework, Django Cors Headers
 * Frontend: HTML3, CSS5, JavaScript, React
+* Машинное обучение: PyTorch
 * Тестирование: Pytest
 
 ## Структура репозитория
