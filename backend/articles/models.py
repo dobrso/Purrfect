@@ -12,4 +12,4 @@ class Article(models.Model):
         verbose_name_plural = 'Статьи'
 
     def __str__(self):
-        return f'{self.title} - {self.author.username}'
+        return self.title
