@@ -8,11 +8,6 @@ import AppointmentPage from "./pages/AppointmentPage";
 import BudgetPlanPage from "./pages/BudgetPlanPage";
 import CabinetPage from "./pages/CabinetPage";
 
-
-function Home() {
-  return <h1>Главная</h1>;
-}
-
 function App() {
   return (
     <Routes>
@@ -20,7 +15,7 @@ function App() {
       <Route path="/pet" element={<PetProfile />} />
       <Route path="/auth" element={<AuthorizationPage />} />
       <Route path="/articles" element={<ArticlesPage />} />
-      <Route path="/article" element={<ArticlePage />} />
+      <Route path="/article/:id" element={<ArticlePage />} />
       <Route path="/appointment" element={<AppointmentPage />} />
       <Route path="/budget" element={<BudgetPlanPage />} />
       <Route path="/cabinet" element={<CabinetPage />} />
