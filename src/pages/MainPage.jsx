@@ -61,7 +61,7 @@ export default function MainPage() {
           <div className="services-left">
             <div className="services-head">
               <h2>Сервисы</h2>
-              <a href="#">Все сервисы →</a>
+              <Link to="/appointment">Все сервисы →</Link>
             </div>
             <div className="cards">
               <div className="card">
