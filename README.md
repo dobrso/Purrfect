@@ -19,8 +19,8 @@ Purrfect - хаб для владельцев домашних животных,
 
 ## Технологический Стек
 * Язык программирования: Python 3.14
-* Backend (Api): Django Rest Framework, Django Cors Headers
-* База данных (SQL): PostgreSQL
+* Backend: Django, Django Rest Framework
+* База данных: PostgreSQL
 * Frontend: HTML3, CSS5, JavaScript, React
 * Машинное обучение: PyTorch
 * Тестирование: Pytest
