@@ -20,7 +20,7 @@ class ArticlesList(APIView):
     def post(self, request):
         if not request.user.is_authenticated:
             return Response({
-                "error": "Требуется авторизация"
+                "message": "Требуется авторизация"
             }, status=status.HTTP_401_UNAUTHORIZED)
 
         serializer = ArticlesSerializer(data=request.data)
@@ -32,7 +32,7 @@ class ArticlesList(APIView):
             }, status=status.HTTP_201_CREATED)
 
         return Response({
-            "error": serializer.errors
+            "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -49,14 +49,14 @@ class ArticleDetail(APIView):
     def put(self, request, article_id):
         if not request.user.is_authenticated:
             return Response({
-                "error": "Требуется авторизация"
+                "message": "Требуется авторизация"
             }, status=status.HTTP_401_UNAUTHORIZED)
 
         article = Article.objects.get(id=article_id)
 
         if article.author != request.user:
             return Response({
-                "error": "У вас нет прав на данное действие"
+                "message": "У вас нет прав на данное действие"
             }, status=status.HTTP_403_FORBIDDEN)
 
         serializer = ArticlesSerializer(article, data=request.data)
@@ -67,20 +67,20 @@ class ArticleDetail(APIView):
             }, status=status.HTTP_200_OK)
 
         return Response({
-            "error": serializer.errors
+            "message": serializer.errors
         }, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, article_id):
         if not request.user.is_authenticated:
             return Response({
-                "error": "Требуется авторизация"
+                "message": "Требуется авторизация"
             }, status=status.HTTP_401_UNAUTHORIZED)
 
         article = Article.objects.get(id=article_id)
 
         if article.author != request.user:
             return Response({
-                "error": "У вас нет прав на данное действие"
+                "message": "У вас нет прав на данное действие"
             }, status=status.HTTP_403_FORBIDDEN)
 
         article.delete()
