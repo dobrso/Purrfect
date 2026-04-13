@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/RegistrationPage.css';
 
 const RegistrationPage = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
     if (password !== confirmPassword) {
-      alert('Пароли не совпадают');
+      setError('Пароли не совпадают');
       return;
     }
-    console.log('Регистрация:', { firstName, lastName, email, password });
-    // здесь логика отправки
+    
+    if (password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов');
+      return;
+    }
+    
+    setLoading(true);
+    
+    try {
+      await register({ username, email, password, password_confirmation: confirmPassword  });
+      navigate('/cabinet'); // После успешной регистрации — в личный кабинет
+    } catch (err) {
+      setError(err.message || 'Ошибка регистрации. Попробуйте другой email.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -23,11 +45,11 @@ const RegistrationPage = () => {
       <header className="header">
         <div className="logo">PURRFECT</div>
         <nav className="nav">
-          <a href="#">Сервисы</a>
-          <a href="#">Статьи</a>
+          <Link to="/appointment">Сервисы</Link>
+          <Link to="/articles">Статьи</Link>
           <a href="#">О проекте</a>
         </nav>
-        <button className="login-btn-header">Войти</button>
+        <Link to="/auth" className="login-btn-header">Войти</Link>
       </header>
 
       <div className="center-wrapper">
@@ -44,30 +66,19 @@ const RegistrationPage = () => {
               Присоединяйтесь к PURRFECT и заботьтесь о ваших питомцах
             </p>
 
+            {error && <div className="error-message" style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
+
             <form onSubmit={handleSubmit}>
-              <div className="name-row">
-                <div className="input-group half">
-                  <label htmlFor="firstName">Имя</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    placeholder="Иван"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group half">
-                  <label htmlFor="lastName">Фамилия</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    placeholder="Иванов"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
+              <div className="input-group">
+                <label htmlFor="username">Имя пользователя</label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Введите имя пользователя"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
               </div>
 
               <div className="input-group">
@@ -87,7 +98,7 @@ const RegistrationPage = () => {
                 <input
                   type="password"
                   id="password"
-                  placeholder="*********"
+                  placeholder="Минимум 6 символов"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -106,13 +117,13 @@ const RegistrationPage = () => {
                 />
               </div>
 
-              <button type="submit" className="submit-btn">
-                Зарегистрироваться
+              <button type="submit" className="submit-btn" disabled={loading}>
+                {loading ? 'Регистрация...' : 'Зарегистрироваться'}
               </button>
             </form>
 
             <div className="login-link">
-              Уже есть аккаунт? <a href="#">Войдите</a>
+              Уже есть аккаунт? <Link to="/auth">Войдите</Link>
             </div>
           </div>
         </div>
