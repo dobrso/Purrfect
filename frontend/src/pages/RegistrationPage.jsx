@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/RegistrationPage.css';
+import { Link } from "react-router-dom";
 
 const RegistrationPage = () => {
   const [firstName, setFirstName] = useState('');
@@ -112,7 +113,7 @@ const RegistrationPage = () => {
             </form>
 
             <div className="login-link">
-              Уже есть аккаунт? <a href="#">Войдите</a>
+              Уже есть аккаунт?  <Link to="/auth">Войдите</Link> 
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/AuthorizationPage.css'; 
 import Header from "../components/Header"
-
+import { Link } from "react-router-dom";
 const AuthPage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -60,7 +60,7 @@ const AuthPage = () => {
             </form>
 
             <div className="register-link">
-              Еще нет профиля? <a href="#">Зарегистрируйтесь</a>
+              Еще нет профиля? <Link to="/registr">Зарегистрируйтесь</Link> 
             </div>
           </div>
         </div>
