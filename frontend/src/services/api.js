@@ -1,11 +1,9 @@
-// src/services/api.js
-
-const API_BASE_URL = 'http://127.0.0.1:8000/api/users/';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 const handleResponse = async (response) => {
   const data = await response.json();
   if (!response.ok) {
-    const error = data?.detail || data?.message || Object.values(data)[0]?.[0] || 'Ошибка сервера';
+    const error = data?.detail || data?.message || 'Ошибка';
     return Promise.reject(error);
   }
   return data;
@@ -13,60 +11,35 @@ const handleResponse = async (response) => {
 
 // Регистрация
 export const register = async (userData) => {
-  const response = await fetch(`${API_BASE_URL}register/`, {
+  const response = await fetch(`${API_BASE_URL}/users/register/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
   });
   const data = await handleResponse(response);
-  
-  if (data.access) {
-    localStorage.setItem('accessToken', data.access);
-    localStorage.setItem('refreshToken', data.refresh);
-  }
+  if (data.access) localStorage.setItem('accessToken', data.access);
   return data;
 };
 
-// Вход (login)
+// Вход
 export const login = async (credentials) => {
-  const response = await fetch(`${API_BASE_URL}login/`, {
+  const response = await fetch(`${API_BASE_URL}/users/login/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials),
   });
   const data = await handleResponse(response);
-  
-  if (data.access) {
-    localStorage.setItem('accessToken', data.access);
-    localStorage.setItem('refreshToken', data.refresh);
-  }
+  if (data.access) localStorage.setItem('accessToken', data.access);
   return data;
 };
 
-// Выход (logout)
+// Выход
 export const logout = async () => {
-  const accessToken = localStorage.getItem('accessToken');
-  try {
-    await fetch(`${API_BASE_URL}logout/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    });
-  } catch (error) {
-    console.log('Ошибка при выходе', error);
-  }
   localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
 };
 
-// Получение текущего пользователя из токена
-export const getCurrentUser = async () => {
-  const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) return Promise.reject('Нет токена');
-  
-  // Так как нет отдельного эндпоинта /user/, 
-  // мы можем расшифровать токен или вернуть данные из localStorage
-  // Пока сделаем заглушку, но ты можешь попросить бекендеров добавить эндпоинт /user/
-  return Promise.reject('Эндпоинт /user/ пока не реализован. Нужно добавить на бекенде.');
+// Получение статей
+export const getArticles = async () => {
+  const response = await fetch(`${API_BASE_URL}/articles/`);
+  return handleResponse(response);
 };
