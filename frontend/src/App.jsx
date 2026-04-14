@@ -9,6 +9,7 @@ import AppointmentPage from "./pages/AppointmentPage";
 import BudgetPlanPage from "./pages/BudgetPlanPage";
 import CabinetPage from "./pages/CabinetPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import CreateArticlePage from "./pages/CreateArticlePage";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -36,6 +37,8 @@ function App() {
           <CabinetPage />
         </PrivateRoute>
       } />
+      <Route path="/cabinet" element={<CabinetPage />} />
+      <Route path="/create-article" element={<CreateArticlePage />} />
     </Routes>
   );
 }
