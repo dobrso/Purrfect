@@ -37,8 +37,11 @@ function App() {
           <CabinetPage />
         </PrivateRoute>
       } />
-      <Route path="/cabinet" element={<CabinetPage />} />
-      <Route path="/create-article" element={<CreateArticlePage />} />
+      <Route path="/create-article" element={
+        <PrivateRoute>
+          <CreateArticlePage />
+        </PrivateRoute>
+      } />
     </Routes>
   );
 }
