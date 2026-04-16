@@ -1,94 +1,57 @@
-from rest_framework import status, permissions
-from rest_framework.views import APIView
+from rest_framework import permissions, viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import action
+from drf_spectacular.utils import extend_schema, extend_schema_view
 
 from .models import Pet
 from .serializers import PetsSerializer
 
-class PetDetail(APIView):
+@extend_schema_view(
+    list=extend_schema(
+        summary='Получить профили всех питомцев',
+        description='Возвращает профили всех питомцев в системе. Требуется авторизация.',
+        tags=['Питомцы'],
+    ),
+    create=extend_schema(
+        summary='Создать новый профиль питомца',
+        description='Создает новый профиль питомца. Требуется авторизация.',
+        tags=['Питомцы'],
+    ),
+    retrieve=extend_schema(
+        summary='Получить профиль питомца по ID',
+        description='Возвращает профиль питомца по указанному ID.',
+        tags=['Питомцы'],
+    ),
+    update=extend_schema(
+        summary='Полное обновление профиля питомца',
+        description='Обновляет все поля профиля питомца. Только владелец может редактировать.',
+        tags=['Питомцы'],
+    ),
+    partial_update=extend_schema(
+        summary='Частичное обновление профиля питомца',
+        description='Обновляет отдельные поля профиля питомца. Только владелец может редактировать.',
+        tags=['Питомцы'],
+    ),
+    destroy=extend_schema(
+        summary='Удалить профиль питомца',
+        description='Удаляет профиль питомца. Только владелец может удалить.',
+        tags=['Питомцы'],
+    ),
+)
+class PetViewSet(viewsets.ModelViewSet):
+    queryset = Pet.objects.all()
+    serializer_class = PetsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request, pet_id):
+    @extend_schema(
+        summary='Получить профили питомцев по ID владельца.',
+        description='Возвращает профили всех питомцев по заданному ID владельца. Требуется авторизация.',
+        tags=['Питомцы'],
+    )
+    @action(detail=False, methods=['get'], url_path='owner/(?P<owner_id>[0-9]+)')
+    def pet_list_by_owner(self, request, owner_id):
         if not request.user.is_authenticated or request.user.id != owner_id:
-            return Response(
-                {"message": "У вас нет прав на данное действие"},
-            )
-
-        pet = Pet.objects.get(pet_id=pet_id)
-        serializer = PetsSerializer(pet)
-        return Response(
-            {"pet": serializer.data},
-            status=status.HTTP_200_OK
-        )
-
-    def put(self, request, pet_id):
-        if not request.user.is_authenticated or request.user.id != owner_id:
-            return Response(
-                {"message": "У вас нет прав на данное действие"},
-            )
-
-        pet = Pet.objects.get(pet_id=pet_id)
-        serializer = PetsSerializer(pet, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"pet": serializer.data},
-                status=status.HTTP_200_OK
-            )
-
-        return Response(
-            {"message": serializer.errors},
-            status=status.HTTP_400_BAD_REQUEST
-        )
-
-    def delete(self, request, pet_id):
-        if not request.user.is_authenticated or request.user.id != owner_id:
-            return Response(
-                {"message": "У вас нет прав на данное действие"},
-            )
-
-        pet = Pet.objects.get(pet_id=pet_id)
-        pet.delete()
-        return Response(
-            {"message": "Питомец удален"},
-            status=status.HTTP_200_OK
-        )
-
-class PetList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request, owner_id):
-        if not request.user.is_authenticated or request.user.id != owner_id:
-            return Response(
-                {"message": "У вас нет прав на данное действие"},
-            )
-
+            return Response({'error': 'У вас нет прав на это действие!'})
         pets = Pet.objects.filter(owner_id=owner_id)
         serializer = PetsSerializer(pets, many=True)
-        return Response(
-            {"pets": serializer.data},
-            status=status.HTTP_200_OK
-        )
-
-    def post(self, request, owner_id):
-        if not request.user.is_authenticated or request.user.id != owner_id:
-            return Response(
-                {"message": "У вас нет прав на данное действие"},
-            )
-
-        data = request.data.copy()
-        data['owner_id'] = owner_id
-
-        serializer = PetsSerializer(data=data, context={'request': request})
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"pet": serializer.data},
-                status=status.HTTP_201_CREATED
-            )
-
-        return Response(
-            {"message": serializer.errors},
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        return Response({'pets': serializer.data})

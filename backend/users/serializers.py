@@ -18,9 +18,14 @@ class RegisterSerializer(serializers.ModelSerializer):
             )
         return data
 
+    def validate_name(self, data):
+        if User.objects.get(username=data).exists():
+            raise serializers.ValidationError('Пользователь с таким именем уже существует!')
+        return data
+
     def validate_email(self, data):
         if User.objects.filter(email=data).exists():
-            raise serializers.ValidationError("Пользователь с таким адресом почты уже существует")
+            raise serializers.ValidationError('Пользователь с таким адресом почты уже существует!')
         return data
 
     def create(self, data):
@@ -46,7 +51,7 @@ class LoginSerializer(serializers.Serializer):
                 user_object = User.objects.get(email=email)
                 user = authenticate(username=user_object.username, password=password)
             except User.DoesNotExist:
-                raise serializers.ValidationError("Пользователь не существует")
+                raise serializers.ValidationError("Пользователь не существует!")
 
         data['user'] = user
         return data
