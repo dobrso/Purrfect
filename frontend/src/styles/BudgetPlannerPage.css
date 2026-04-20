@@ -1,0 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+.budget-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Шапка (общая) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  letter-spacing: 1px;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #b87c4e;
+}
+
+.login-btn-header {
+  background: transparent;
+  border: 1px solid #FFE4C4;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #b87c4e;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-btn-header:hover {
+  background: #FFE4C4;
+  color: #2c3e50;
+}
+
+/* Центрирование */
+.center-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Карточка с двумя колонками */
+.budget-card-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 1000px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-image {
+  flex: 1.2;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.budget-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 24px;
+}
+
+.budget-form {
+  flex: 1;
+  min-width: 0;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.budget-form h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  color: #b87c4e;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+}
+
+/* Группы полей */
+.input-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.input-group input[type="text"],
+.input-group input[type="number"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #FFE4C4;
+  box-shadow: 0 0 0 3px rgba(255, 228, 196, 0.3);
+}
+
+/* Радиокнопки и чекбоксы */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.3rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: normal;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.radio-label input {
+  margin: 0;
+  width: auto;
+  cursor: pointer;
+}
+
+.hint {
+  display: block;
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 0.2rem;
+}
+
+/* Группа кнопок */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.submit-btn, .reset-btn {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  border: none;
+}
+
+.submit-btn {
+  background-color: #FFE4C4;
+  color: #2c3e50;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #f5d5b0;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reset-btn {
+  background-color: transparent;
+  border: 1px solid #e0e0e0;
+  color: #888;
+}
+
+.reset-btn:hover {
+  background-color: #f9f9f9;
+  border-color: #b87c4e;
+  color: #b87c4e;
+}
+
+/* Результат */
+.result-box {
+  margin-top: 1.5rem;
+  background-color: #fef9f0;
+  border-radius: 20px;
+  padding: 1.2rem;
+  text-align: center;
+  border-left: 4px solid #b87c4e;
+}
+
+.result-box h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.budget-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #b87c4e;
+  margin: 0.5rem 0;
+}
+
+.budget-detail {
+  font-size: 0.75rem;
+  color: #7f8c8d;
+}
+
+/* Подвал */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: white;
+  border-top: 1px solid #f0f0f0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .budget-card-horizontal {
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 500px;
+  }
+  .budget-image {
+    flex: none;
+    width: 100%;
+    max-width: 80%;
+  }
+  .budget-form {
+    padding: 1.5rem;
+  }
+  .budget-form h2 {
+    font-size: 1.4rem;
+  }
+  .radio-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .button-group {
+    flex-direction: column;
+  }
+}
