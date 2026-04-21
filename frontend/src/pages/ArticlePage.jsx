@@ -9,41 +9,40 @@ import {
   Share2,
   ChevronRight
 } from "lucide-react";
-
-import { articlesData } from "../data/articlesData";
+import { useState, useEffect } from "react";
+import api from "../api";
 import "../styles/ArticlePage.css";
 
 export default function ArticlePage() {
   const { id } = useParams();
-  
-  // Находим статью напрямую
-  const article = articlesData.find(item => item.id === Number(id));
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  console.log("ID из URL:", id);
-  console.log("Найденная статья:", article);
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await api.get(`/articles/${id}/`);
+        // Бэкенд возвращает { article: {...} }
+        setArticle(response.data.article);
+      } catch (err) {
+        console.error(err);
+        setError('Статья не найдена');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticle();
+  }, [id]);
 
-
-  if (!article) {
+  if (loading) return <div className="loading">Загрузка статьи...</div>;
+  if (error || !article) {
     return (
       <div className="article-page">
-        <header className="article-header">
-          <Link to="/" className="article-logo">
-            <PawPrint size={24} />
-            PURRFECT
-          </Link>
-          <nav className="article-nav">
-            <NavLink to="/">Главная</NavLink>
-            <NavLink to="/cabinet">Личный кабинет</NavLink>
-            <NavLink to="/articles">Статьи</NavLink>
-          </nav>
-          <div className="article-user">
-            <div className="article-avatar">П</div>
-            <span>Полина</span>
-          </div>
-        </header>
+        <header className="article-header">... (как в вашем компоненте)</header>
         <main className="article-main">
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-            <h2>Статья не найдена</h2>
+            <h2>{error || 'Статья не найдена'}</h2>
             <Link to="/articles" style={{ color: '#f97316', marginTop: '16px', display: 'inline-block' }}>
               Вернуться к статьям
             </Link>
@@ -78,32 +77,28 @@ export default function ArticlePage() {
           </Link>
         </div>
 
-        <img src={article.image} alt={article.title} className="article-hero-image" />
+        {/* Если нет поля image, замените на заглушку или уберите */}
+        <img src={article.image || '/default-article.jpg'} alt={article.title} className="article-hero-image" />
 
         <div className="article-author-section">
           <div className="author-info">
-            <img src={article.author.avatar} alt={article.author.name} className="author-avatar" />
+            {/* Если автор приходит как объект с avatar, иначе заглушка */}
+            <img src={article.author?.avatar || '/default-avatar.png'} alt={article.author?.name || 'Автор'} className="author-avatar" />
             <div className="author-details">
-              <h3>{article.author.name}</h3>
+              <h3>{article.author?.name || 'Автор'}</h3>
               <p>Автор статьи</p>
             </div>
           </div>
           <div className="article-meta-info">
-            <span><Calendar size={16} /> {article.date}</span>
-            <span><Clock size={16} /> {article.readTime} чтения</span>
+            <span><Calendar size={16} /> {article.created_at ? new Date(article.created_at).toLocaleDateString() : 'Дата не указана'}</span>
+            <span><Clock size={16} /> ~5 мин чтения</span>
           </div>
         </div>
 
         <div className="article-actions">
-          <button className="action-btn">
-            <Heart size={18} /> Нравится
-          </button>
-          <button className="action-btn">
-            <Bookmark size={18} /> Сохранить
-          </button>
-          <button className="action-btn">
-            <Share2 size={18} /> Поделиться
-          </button>
+          <button className="action-btn"><Heart size={18} /> Нравится</button>
+          <button className="action-btn"><Bookmark size={18} /> Сохранить</button>
+          <button className="action-btn"><Share2 size={18} /> Поделиться</button>
         </div>
 
         <div className="article-content" dangerouslySetInnerHTML={{ __html: article.content }} />

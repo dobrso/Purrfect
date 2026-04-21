@@ -31,8 +31,8 @@ const RegistrationPage = () => {
     setLoading(true);
     
     try {
-      await register({ username, email, password, password_confirmation: confirmPassword  });
-      navigate('/cabinet'); // После успешной регистрации — в личный кабинет
+      await register({ username, email, password, password_confirmation: confirmPassword });
+      navigate('/cabinet');
     } catch (err) {
       setError(err.message || 'Ошибка регистрации. Попробуйте другой email.');
     } finally {

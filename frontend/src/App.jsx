@@ -6,9 +6,13 @@ import AuthorizationPage from "./pages/AuthorizationPage";
 import ArticlesPage from "./pages/ArticlesPage";
 import ArticlePage from "./pages/ArticlePage";
 import AppointmentPage from "./pages/AppointmentPage";
-import BudgetPlanPage from "./pages/BudgetPlanPage";
+import BudgetPlanPage from "./pages/BudgetPlannerPage";
 import CabinetPage from "./pages/CabinetPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import CreateArticlePage from "./pages/CreateArticlePage";
+import BreedIdentificationPage from './pages/BreedIdentificationPage';
+import BudgetPlannerPage from './pages/BudgetPlannerPage';
+
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -35,6 +39,15 @@ function App() {
         <PrivateRoute>
           <CabinetPage />
         </PrivateRoute>
+      } />
+      <Route path="/create-article" element={
+          <CreateArticlePage />
+      } />
+      <Route path="/breed-identification" element={
+        <BreedIdentificationPage/>
+      } />
+      <Route path="/budget-planner" element={
+        <BudgetPlanPage/>
       } />
     </Routes>
   );
