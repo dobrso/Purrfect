@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PawPrint, Sparkles, Stethoscope, ArrowRight } from "lucide-react";
+import { PawPrint, Sparkles, Stethoscope, Calculator, Search, ArrowRight } from "lucide-react";
 import "../styles/ServicesPage.css";
 
 export default function ServicesPage() {
@@ -52,6 +52,30 @@ export default function ServicesPage() {
             <p>Выберите удобное время и специалиста для вашего питомца. Мы заботимся о здоровье</p>
             <div className="service-btn">
               Записаться <ArrowRight size={16} />
+            </div>
+          </Link>
+
+          {/* Планировщик бюджета */}
+          <Link to="/budget-planner" className="service-card">
+            <div className="service-icon">
+              <Calculator size={32} />
+            </div>
+            <h2>Планировщик бюджета</h2>
+            <p>Рассчитайте примерные расходы на содержание питомца. Учитываем возраст, условия проживания и сезон</p>
+            <div className="service-btn">
+              Рассчитать <ArrowRight size={16} />
+            </div>
+          </Link>
+
+          {/* Определение породы */}
+          <Link to="/breed-identification" className="service-card">
+            <div className="service-icon">
+              <Search size={32} />
+            </div>
+            <h2>Определение породы</h2>
+            <p>Загрузите фото питомца и узнайте его породу. Быстро и бесплатно</p>
+            <div className="service-btn">
+              Определить <ArrowRight size={16} />
             </div>
           </Link>
         </div>

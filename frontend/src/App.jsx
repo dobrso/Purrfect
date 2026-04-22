@@ -12,7 +12,11 @@ import RegistrationPage from "./pages/RegistrationPage";
 import CreateArticlePage from "./pages/CreateArticlePage";
 import BreedIdentificationPage from './pages/BreedIdentificationPage';
 import BudgetPlannerPage from './pages/BudgetPlannerPage';
-
+import MarketplacePage from "./pages/MarketplacePage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import CartPage from "./pages/CartPage";
+import NameGeneratorPage from "./pages/NameGeneratorPage";
+import ServicesPage from "./pages/ServicesPage";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -40,15 +44,14 @@ function App() {
           <CabinetPage />
         </PrivateRoute>
       } />
-      <Route path="/create-article" element={
-          <CreateArticlePage />
-      } />
-      <Route path="/breed-identification" element={
-        <BreedIdentificationPage/>
-      } />
-      <Route path="/budget-planner" element={
-        <BudgetPlanPage/>
-      } />
+      <Route path="/create-article" element={<CreateArticlePage />} />
+      <Route path="/breed-identification" element={<BreedIdentificationPage />} />
+      <Route path="/budget-planner" element={<BudgetPlannerPage />} />
+      <Route path="/marketplace" element={<MarketplacePage />} />
+      <Route path="/marketplace/:id" element={<ProductDetailPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/name-generator" element={<NameGeneratorPage />} />
+      <Route path="/services" element={<ServicesPage />} />
     </Routes>
   );
 }

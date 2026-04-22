@@ -14,7 +14,7 @@ const products = [
     category: "food",
     rating: 4.8,
     reviews: 156,
-    image: "https://images.unsplash.com/photo-1669296667524-906d519cbe3e?w=600&h=400&fit=crop",
+    image: "https://royalcanin.ru/_nuxt/product-cat-mobile-1_2x.B9HwfjbC.webp",
     inStock: true,
     weight: "2 кг",
     ingredients: ["Дегидратированное мясо птицы", "Рис", "Кукуруза", "Животные жиры", "Витамины A, D3, E"],
@@ -29,7 +29,7 @@ const products = [
     category: "food",
     rating: 4.9,
     reviews: 234,
-    image: "https://images.unsplash.com/photo-1684882726821-2999db517441?w=600&h=400&fit=crop",
+    image: "https://petobzor.com/wp-content/uploads/2018/02/Korm-dlya-sobak-Pro-Plan-otzyvy.jpg",
     inStock: true,
     weight: "3 кг",
     ingredients: ["Курица (20%)", "Сухой белок птицы", "Пшеница", "Рис", "Минералы"],
@@ -44,7 +44,7 @@ const products = [
     category: "toys",
     rating: 4.4,
     reviews: 45,
-    image: "https://images.unsplash.com/photo-1589924749359-9697080c3577?w=600&h=400&fit=crop",
+    image: "https://img-edg.joomcdn.net/5df77a0376770419bcbfaf867f259a2c2fbc83e0_original.jpeg",
     inStock: true,
     features: ["Натуральная кошачья мята", "Безопасные материалы", "Стимулирует активность"]
   },
@@ -57,7 +57,7 @@ const products = [
     category: "accessories",
     rating: 4.8,
     reviews: 178,
-    image: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=600&h=400&fit=crop",
+    image: "https://catpeople.ru/assets/cache_image/images/kotovodstvo/kogtetochka-dlya-koshek/001_870x510_f3e.jpg",
     inStock: true,
     features: ["Прочное сизалевое покрытие", "Устойчивое основание", "Подвесные игрушки"]
   },
@@ -70,7 +70,7 @@ const products = [
     category: "health",
     rating: 4.7,
     reviews: 67,
-    image: "https://images.unsplash.com/photo-1717265650331-c88c15cd5f81?w=600&h=400&fit=crop",
+    image: "https://vizoovi.ru/thumbs/143/veda_6___e4525cc9-504x712x0-d.jpg",
     inStock: true,
     ingredients: ["Таурин", "Витамины группы B", "Витамин E", "Омега-3", "Кальций"],
     features: ["Укрепление иммунитета", "Здоровая шерсть", "Поддержка зрения"]
@@ -84,7 +84,7 @@ const products = [
     category: "accessories",
     rating: 4.6,
     reviews: 92,
-    image: "https://images.unsplash.com/photo-1667716705760-233650f8f3fe?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1667716705760-233650f8f3fe?w=400&h=300&fit=crop",
     inStock: true,
     features: ["Светоотражающие элементы", "Регулируемая длина", "Прочный нейлон"]
   }
@@ -187,7 +187,10 @@ export default function ProductDetailPage() {
 
           <div className="product-detail-grid">
             <div className="product-detail-image">
-              <img src={product.image} alt={product.name} />
+              <img 
+                src={product.image} 
+                alt={product.name}
+              />
             </div>
 
             <div className="product-detail-info">
