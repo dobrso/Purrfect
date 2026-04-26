@@ -3,7 +3,7 @@ from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResp
 from drf_spectacular.types import OpenApiTypes
 
 from .models import Article
-from .serializers import ArticlesSerializer
+from .serializers import ArticleSerializer
 
 @extend_schema_view(
     list=extend_schema(
@@ -39,5 +39,5 @@ from .serializers import ArticlesSerializer
 )
 class ArticlesViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
-    serializer_class = ArticlesSerializer
+    serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

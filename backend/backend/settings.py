@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'articles.apps.ArticlesConfig',
     'pets.apps.PetsConfig',
+    'marketplace.apps.MarketplaceConfig',
+    'medicine.apps.MedicineConfig',
 ]
 
 MIDDLEWARE = [

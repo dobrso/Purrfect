@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, extend_schema_view
 
 from .models import Pet
-from .serializers import PetsSerializer
+from .serializers import PetSerializer
 
 @extend_schema_view(
     list=extend_schema(
@@ -40,7 +40,7 @@ from .serializers import PetsSerializer
 )
 class PetViewSet(viewsets.ModelViewSet):
     queryset = Pet.objects.all()
-    serializer_class = PetsSerializer
+    serializer_class = PetSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     @extend_schema(
@@ -53,5 +53,5 @@ class PetViewSet(viewsets.ModelViewSet):
         if not request.user.is_authenticated or request.user.id != owner_id:
             return Response({'error': 'У вас нет прав на это действие!'})
         pets = Pet.objects.filter(owner_id=owner_id)
-        serializer = PetsSerializer(pets, many=True)
+        serializer = PetSerializer(pets, many=True)
         return Response({'pets': serializer.data})
