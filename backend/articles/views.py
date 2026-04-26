@@ -1,9 +1,20 @@
+from rest_framework.generics import ListAPIView
 from rest_framework import permissions, viewsets
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResponse, OpenApiExample
 from drf_spectacular.types import OpenApiTypes
 
 from .models import Article
 from .serializers import ArticleSerializer
+
+@extend_schema_view(
+    summary='Получить список статей',
+    description='Возвращает список всех статей',
+    tags=['Статьи'],
+)
+class ArticleListAPIView(ListAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [permissions.AllowAny]
 
 @extend_schema_view(
     list=extend_schema(
