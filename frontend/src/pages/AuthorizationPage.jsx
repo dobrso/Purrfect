@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
-import '../styles/AuthorizationPage.css'; 
-import Header from "../components/Header"
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import '../styles/AuthorizationPage.css';
+import Header from "../components/Header";
 
 const AuthPage = () => {
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login:', login, 'Password:', password);
-    // Здесь логика авторизации
+    setError('');
+    setLoading(true);
+    
+    try {
+      await login({ email, password });
+      navigate('/cabinet'); // После успешного входа — в личный кабинет
+    } catch (err) {
+      setError(err.message || 'Ошибка входа. Проверьте логин и пароль.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="login-page">
-        <Header />
+      <Header />
       <div className="center-wrapper">
         <div className="auth-card-horizontal">
           <div className="auth-image">
@@ -27,15 +43,17 @@ const AuthPage = () => {
             <h2>Добро пожаловать</h2>
             <p className="subtitle">Войдите в свой аккаунт</p>
 
+            {error && <div className="error-message">{error}</div>}
+
             <form onSubmit={handleSubmit}>
               <div className="input-group">
-                <label htmlFor="login">Логин</label>
+                <label htmlFor="email">Email</label>
                 <input
-                  type="text"
-                  id="login"
-                  placeholder="Введите логин"
-                  value={login}
-                  onChange={(e) => setLogin(e.target.value)}
+                  type="email"
+                  id="email"
+                  placeholder="Введите email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -56,11 +74,13 @@ const AuthPage = () => {
                 <a href="#">Забыли пароль?</a>
               </div>
 
-              <button type="submit" className="submit-btn">Войти</button>
+              <button type="submit" className="submit-btn" disabled={loading}>
+                {loading ? 'Вход...' : 'Войти'}
+              </button>
             </form>
 
             <div className="register-link">
-              Еще нет профиля? <a href="#">Зарегистрируйтесь</a>
+              Еще нет профиля? <Link to="/registr">Зарегистрируйтесь</Link>
             </div>
           </div>
         </div>

@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: white;
+  color: #333;
+}
+
+.breed-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Шапка (такая же, как на других страницах) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  letter-spacing: 1px;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #b87c4e;
+}
+
+.login-btn-header {
+  background: transparent;
+  border: 1px solid #FFE4C4;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #b87c4e;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-btn-header:hover {
+  background: #FFE4C4;
+  color: #2c3e50;
+}
+
+/* Центрирование */
+.center-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Контейнер для фото и формы */
+.breed-card-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 900px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Фото слева */
+.breed-image {
+  flex: 1.2;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breed-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 24px;
+}
+
+/* Карточка справа */
+.breed-form {
+  flex: 1;
+  min-width: 0;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.breed-form h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+  color: #b87c4e;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+}
+
+/* Область загрузки */
+.upload-area {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.upload-label {
+  display: inline-block;
+  background-color: #FFE4C4;
+  color: #2c3e50;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 1rem;
+}
+
+.upload-label:hover {
+  background-color: #f5d5b0;
+}
+
+.preview-container {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: #b87c4e;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin: 0 auto;
+}
+
+.clear-btn:hover {
+  color: #8b5e3c;
+}
+
+/* Кнопка определения */
+.identify-btn {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #FFE4C4;
+  color: #2c3e50;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 1rem;
+}
+
+.identify-btn:hover:not(:disabled) {
+  background-color: #f5d5b0;
+}
+
+.identify-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Блок результата */
+.result-box {
+  background-color: #fef9f0;
+  border-left: 4px solid #b87c4e;
+  padding: 0.8rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.result-box strong {
+  color: #b87c4e;
+}
+
+/* Подвал */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: white;
+  border-top: 1px solid #f0f0f0;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .breed-card-horizontal {
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 500px;
+  }
+  .breed-image {
+    flex: none;
+    width: 100%;
+    max-width: 80%;
+  }
+  .breed-form {
+    padding: 1.5rem;
+  }
+  .breed-form h2 {
+    font-size: 1.4rem;
+  }
+  .preview-image {
+    max-height: 150px;
+  }
+}
