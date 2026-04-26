@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Pet
 
 
-class PetsSerializer(serializers.ModelSerializer):
+class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
-        field = ['name', 'city', 'age', 'breed', 'color', 'image', 'owner']
+        fields = ['id', 'name', 'city', 'age', 'breed', 'color', 'image', 'owner']

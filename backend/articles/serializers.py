@@ -1,8 +1,12 @@
 from rest_framework import serializers
 
 from .models import Article
+from users.serializers import SimpleUserSerializer
 
-class ArticlesSerializer(serializers.ModelSerializer):
+
+class ArticleSerializer(serializers.ModelSerializer):
+    author = SimpleUserSerializer(read_only=True)
+
     class Meta:
         model = Article
-        fields = ['title', 'content']
+        fields = ['id', 'title', 'content', 'author']
