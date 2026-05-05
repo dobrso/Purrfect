@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import '../styles/BreedIdentificationPage.css';
+import { recognizeBreed } from '../../services/api'; // путь может отличаться
+import './BreedIdentificationPage.css';
 
 const BreedIdentificationPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [breedResult, setBreedResult] = useState('');
+  const [confidence, setConfidence] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Обработка выбора файла
   const handleFileChange = (e) => {
@@ -14,37 +17,32 @@ const BreedIdentificationPage = () => {
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
-      setBreedResult(''); // сбрасываем предыдущий результат
+      setBreedResult('');
+      setConfidence(null);
+      setError('');
     }
   };
 
-  // Имитация запроса к ML-модели
-  const handleIdentifyBreed = () => {
+  // Отправка фото на бэкенд
+  const handleIdentifyBreed = async () => {
     if (!selectedFile) {
-      alert('Пожалуйста, сначала загрузите фото');
+      setError('Пожалуйста, сначала загрузите фото');
       return;
     }
 
     setIsLoading(true);
-    setBreedResult('');
+    setError('');
 
-    // Симуляция задержки ответа сервера
-    setTimeout(() => {
-      // Список популярных пород для демонстрации
-      const breeds = [
-        'Сибирская кошка',
-        'Мейн-кун',
-        'Британская короткошёрстная',
-        'Шотландская вислоухая',
-        'Сфинкс',
-        'Персидская кошка',
-        'Бенгальская кошка',
-        'Абиссинская кошка'
-      ];
-      const randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
-      setBreedResult(randomBreed);
+    try {
+      const result = await recognizeBreed(selectedFile);
+      setBreedResult(result.breed);
+      setConfidence(result.confidence);
+    } catch (err) {
+      setError(err || 'Ошибка при распознавании породы');
+      console.error('Ошибка:', err);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   // Очистка загруженного фото
@@ -52,6 +50,8 @@ const BreedIdentificationPage = () => {
     setSelectedFile(null);
     setPreviewUrl(null);
     setBreedResult('');
+    setConfidence(null);
+    setError('');
   };
 
   return (
@@ -101,17 +101,28 @@ const BreedIdentificationPage = () => {
               )}
             </div>
 
+            {error && (
+              <div className="error-message">
+                ⚠️ {error}
+              </div>
+            )}
+
             <button
               onClick={handleIdentifyBreed}
               className="identify-btn"
-              disabled={isLoading}
+              disabled={isLoading || !selectedFile}
             >
-              {isLoading ? 'Определяем...' : 'Определить породу'}
+              {isLoading ? 'Анализируем...' : 'Определить породу'}
             </button>
 
             {breedResult && (
               <div className="result-box">
-                <p>🔍 Порода: <strong>{breedResult}</strong></p>
+                <p>🐾 Порода: <strong>{breedResult}</strong></p>
+                {confidence && (
+                  <p className="confidence">
+                    Уверенность: {Math.round(confidence * 100)}%
+                  </p>
+                )}
               </div>
             )}
           </div>

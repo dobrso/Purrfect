@@ -307,3 +307,20 @@ body {
     flex-direction: column;
   }
 }
+
+.error-message {
+  background-color: #fee;
+  border-left: 4px solid #e74c3c;
+  padding: 0.8rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: #c0392b;
+  text-align: center;
+}
+
+.confidence {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-top: 0.3rem;
+}

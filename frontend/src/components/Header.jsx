@@ -9,9 +9,10 @@ export default function Header() {
         <div className="logo">🐾 PURRFECT</div>
 
         <nav className="nav">
-          <Link to="/appointment">Сервисы</Link>   {/* ← изменено */}
+          <Link to="/services">Сервисы</Link>
           <Link to="/articles">Статьи</Link>
           <a href="#">О проекте</a>
+          <Link to="/marketplace">Маркетплейс</Link>
         </nav>
 
         <button className="login" onClick={() => navigate("/auth")}>
