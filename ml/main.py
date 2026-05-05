@@ -121,7 +121,7 @@ def train_model(model, train_dataset, test_dataset, n_epochs, batch_size, learni
               f"test_loss: {test_loss:.6f} | "
               f"test_acc: {test_acc:.6f}")
 
-    return history
+    return history, model
 
 def plot_training_history(history):
     train_acc_percent = [acc * 100 for acc in history["train_acc"]]
@@ -228,7 +228,7 @@ def main():
     model = PetClassifier(num_classes=len(classes)).to(device)
 
     print("Начало обучения...\n")
-    history = train_model(
+    history, trained_model = train_model(
         model=model,
         train_dataset=train_dataset,
         test_dataset=test_dataset,
@@ -237,6 +237,8 @@ def main():
         learning_rate=LEARNING_RATE,
         device=device
     )
+
+    torch.save(trained_model, 'ml/')
 
     plot_training_history(history)
 
