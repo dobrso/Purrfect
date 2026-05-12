@@ -1,0 +1,692 @@
+/* AppointmentPage.css */
+
+.appointment-page {
+  min-height: 100vh;
+  background: white;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ========== ШАПКА ========== */
+.appointment-header {
+  background: white;
+  border-bottom: 1px solid #ffe4c4;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.appointment-logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f97316, #ec489a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.appointment-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.appointment-nav a {
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.appointment-nav a:hover,
+.appointment-nav a.active {
+  color: #f97316;
+}
+
+.appointment-login {
+  background: #f97316;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.appointment-login:hover {
+  background: #ea580c;
+  transform: translateY(-2px);
+}
+
+/* ========== HERO СЕКЦИЯ ========== */
+.appointment-hero {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffe4c4 100%);
+  border-radius: 28px;
+  padding: 48px 48px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.appointment-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 250px;
+  height: 250px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+}
+
+.appointment-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+}
+
+.appointment-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: left; 
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 16px;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #f97316;
+  margin-bottom: 24px;
+}
+
+.appointment-hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.appointment-hero p {
+  font-size: 17px;
+  color: #4b5563;
+  max-width: 540px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* ========== ОСНОВНОЙ КОНТЕЙНЕР ========== */
+.appointment-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px 48px;
+}
+
+.appointment-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+}
+
+/* ========== КАРТОЧКИ ФОРМЫ ========== */
+.appointment-form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 28px;
+  padding: 28px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.form-card:hover {
+  border-color: #ffe4c4;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f5f5f5;
+  text-align: left;
+}
+
+.form-card-icon {
+  width: 48px;
+  height: 48px;
+  background: #fff7ed;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-card-icon svg {
+  color: #f97316;
+  width: 24px;
+  height: 24px;
+}
+
+.form-card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.form-card-header p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* ========== ВЫБОР ПИТОМЦА ========== */
+.pet-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.pet-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.pet-btn:hover {
+  border-color: #ffe4c4;
+  background: #fffaf5;
+  transform: translateY(-2px);
+}
+
+.pet-btn.selected {
+  border-color: #f97316;
+  background: #fff7ed;
+  box-shadow: 0 4px 12px rgba(249,115,22,0.12);
+}
+
+.pet-btn strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.pet-btn span {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* ========== ВЫБОР УСЛУГИ ========== */
+.service-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.service-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 20px;
+  min-width: 110px;
+  border: 2px solid #f0f0f0;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.service-btn:hover {
+  border-color: #ffe4c4;
+  background: #fffaf5;
+  transform: translateY(-1px);
+}
+
+.service-btn.selected {
+  border-color: #f97316;
+  background: #fff7ed;
+}
+
+.service-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.service-duration {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* ========== ВЫБОР ВРАЧА ========== */
+.doctor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.doctor-btn {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 24px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.doctor-btn:hover {
+  border-color: #ffe4c4;
+  background: #fffaf5;
+  transform: translateX(4px);
+}
+
+.doctor-btn.selected {
+  border-color: #f97316;
+  background: #fff7ed;
+  box-shadow: 0 4px 12px rgba(249,115,22,0.12);
+}
+
+.doctor-btn img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.doctor-info {
+  flex: 1;
+}
+
+.doctor-info strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.doctor-info span {
+  display: block;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.doctor-experience {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 4px;
+}
+
+/* ========== ДАТА И ВРЕМЯ ========== */
+.datetime-section {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+.date-picker {
+  width: 100%;
+}
+
+.date-picker label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.time-picker {
+  width: 100%;
+}
+
+.time-picker label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.date-picker input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #f0f0f0;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500; 
+  background: white;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.date-picker input:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.time-slot {
+  padding: 10px 8px;
+  border: 2px solid #f0f0f0;
+  border-radius: 40px;
+  background: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-slot:hover:not(.disabled) {
+  border-color: #f97316;
+  background: #fff7ed;
+  transform: translateY(-1px);
+}
+
+.time-slot.selected {
+  background: #f97316;
+  border-color: #f97316;
+  color: white;
+}
+
+.time-slot.disabled {
+  background: #fafafa;
+  color: #d1d5db;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ========== КНОПКА ОТПРАВКИ ========== */
+.submit-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #f97316, #ec489a);
+  color: white;
+  border: none;
+  border-radius: 60px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 12px;
+  box-shadow: 0 4px 12px rgba(249,115,22,0.2);
+}
+
+.submit-btn:hover:not(.disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(249,115,22,0.3);
+}
+
+.submit-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ========== ПРАВАЯ КОЛОНКА ========== */
+.appointment-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.info-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 28px;
+  padding: 28px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.info-card:hover {
+  border-color: #ffe4c4;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.clinic-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.clinic-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.info-card:hover .clinic-image img {
+  transform: scale(1.02);
+}
+
+.info-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 3px solid #f97316;
+  padding-left: 12px;
+}
+
+.info-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f5f5f5;
+  transition: all 0.2s;
+}
+
+.info-item:hover {
+  transform: translateX(4px);
+}
+
+.info-item svg {
+  color: #f97316;
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+}
+.info-item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+
+.info-item p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.useful-info {
+  background: linear-gradient(135deg, #fffaf5 0%, #fff7ed 100%);
+  border: 1px solid #ffe4c4;
+}
+
+
+
+.useful-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.useful-info li {
+  padding: 14px 0;
+  font-size: 14px;
+  color: #4b5563;
+  border-bottom: 1px solid #ffe4c4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
+}
+
+.useful-info li:last-child {
+  border-bottom: none;
+}
+
+.useful-info li::before {
+  content: "🐾";
+  font-size: 16px;
+  color: #f97316;
+  transition: transform 0.2s;
+}
+
+.useful-info li:hover::before {
+  transform: scale(1.1);
+}
+
+/* ========== ФУТЕР ========== */
+.appointment-footer {
+  background: white;
+  border-top: 1px solid #ffe4c4;
+  padding: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 48px;
+}
+
+.appointment-footer svg {
+  color: #fdba74;
+  margin: 0 6px;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 1024px) {
+  .appointment-main {
+    padding: 0 24px 40px;
+  }
+  
+  .appointment-layout {
+    gap: 32px;
+  }
+  
+  .appointment-hero h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 900px) {
+  .appointment-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .appointment-header {
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .appointment-nav {
+    gap: 24px;
+  }
+  
+  .appointment-hero {
+    padding: 32px 28px;
+  }
+  
+  .appointment-hero h1 {
+    font-size: 30px;
+  }
+  
+  .pet-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .datetime-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .service-list {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-main {
+    padding: 0 16px 32px;
+  }
+  
+  .form-card {
+    padding: 20px;
+  }
+  
+  .doctor-btn {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .doctor-btn img {
+    margin-bottom: 8px;
+  }
+}

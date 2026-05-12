@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+}
+
+.page {
+  min-height: 100vh;
+  background: #f6f6f6;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.header {
+  height: 70px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-weight: 700;
+  color: #e6c29f;
+}
+
+.nav a {
+  margin: 0 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.login-btn {
+  background: #e6c29f;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+}
+
+/* MAIN */
+.main {
+  padding: 40px 60px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+.layout {
+  display: flex;
+  gap: 60px;
+}
+
+/* LEFT */
+.left {
+  width: 320px;
+}
+
+.pet-image {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.upload-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background: #e6c29f;
+  border: none;
+  border-radius: 12px;
+}
+
+.owner {
+  margin-top: 20px;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.owner-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.owner-name {
+  color: #e6c29f;
+}
+
+.owner-link {
+  font-size: 14px;
+}
+
+/* RIGHT */
+.right {
+  flex: 1;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.field span {
+  color: #555;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.save-btn {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background: #e6c29f;
+  border: none;
+  border-radius: 12px;
+  width: 280px;
+}
+
+.upload-btn {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+}

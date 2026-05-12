@@ -1,0 +1,292 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f7f7;
+    color: #2b2b2b;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+
+/* HEADER */
+
+.header {
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #c07a45;
+}
+
+.nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #444;
+}
+
+.login {
+    background: #f3d8c4;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+
+/* HERO */
+
+.hero {
+    padding: 70px 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.hero-left h1 {
+    font-size: 46px;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/* SEARCH */
+
+.search {
+    display: flex;
+    background: white;
+    border-radius: 40px;
+    padding: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 15px;
+}
+
+.search input {
+    flex: 1;
+    border: none;
+    padding: 14px;
+    outline: none;
+}
+
+.search button {
+    border: none;
+    background: #f3d8c4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+
+/* TAGS */
+
+.tags span {
+    background: #eee;
+    padding: 8px 14px;
+    border-radius: 20px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+
+/* PET IMAGE */
+
+.pets {
+    background: #f3d8c4;
+    padding: 30px;
+    border-radius: 40px;
+}
+
+.pets img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+
+/* SERVICES */
+
+.services {
+    padding: 70px 0;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+.services-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+
+/* USEFUL */
+
+.useful {
+    background: #f3d8c4;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.useful-item {
+    background: white;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+/* ARTICLES */
+
+.articles {
+    padding: 70px 0;
+}
+
+.articles-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.article {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.article img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.article p {
+    padding: 15px;
+}
+
+/* Анимации для карточек популярных статей */
+.articles-grid .article {
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+  border-radius: 24px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.articles-grid .article:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+}
+
+.articles-grid .article img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.articles-grid .article:hover img {
+  transform: scale(1.05);
+}
+
+.articles-grid .article p {
+  padding: 16px;
+  margin: 0;
+  font-weight: 500;
+  color: #1e293b;
+  transition: color 0.2s;
+  text-align: center;
+}
+
+.articles-grid .article:hover p {
+  color: #f97316;
+}
+
+/* Анимация для кнопки "Все статьи" */
+.articles-head a {
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.articles-head a:hover {
+  gap: 8px;
+  color: #f97316;
+}
+
+/* Анимация для карточек сервисов (опционально) */
+.services .card {
+  transition: all 0.3s ease;
+}
+
+.services .card:hover {
+  transform: translateY(-4px);
+  background: #fff7ed;
+  border-color: #ffe4c4;
+}
+
+/* Анимация для полезных услуг */
+.useful-item {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.useful-item:hover {
+  color: #f97316;
+  padding-left: 8px;
+}
