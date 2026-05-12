@@ -204,7 +204,7 @@ def print_statistics(history):
 
 def main():
     DATA_PATH = 'Pet_Breeds'
-    N_EPOCHS = 2
+    N_EPOCHS = 50
     BATCH_SIZE = 16
     LEARNING_RATE = 0.001
 
@@ -238,7 +238,7 @@ def main():
         device=device
     )
 
-    torch.save(trained_model, 'ml/')
+    torch.save(trained_model, 'pet_classifier.pth')
 
     plot_training_history(history)
 
