@@ -204,7 +204,7 @@ def print_statistics(history):
 
 def main():
     DATA_PATH = 'Pet_Breeds'
-    N_EPOCHS = 1
+    N_EPOCHS = 50
     BATCH_SIZE = 16
     LEARNING_RATE = 0.001
 
