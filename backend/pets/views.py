@@ -1,4 +1,3 @@
-import os
 import io
 import base64
 import requests
@@ -6,6 +5,7 @@ import torch
 import torch.nn as nn
 from torchvision import transforms
 from PIL import Image
+from django.conf import settings
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -14,39 +14,6 @@ from drf_spectacular.utils import extend_schema, extend_schema_view
 
 from .models import Pet
 from .serializers import PetSerializer
-from backend.settings import BASE_DIR
-
-
-class PetClassifier(nn.Module):
-    def __init__(self, num_classes):
-        super(PetClassifier, self).__init__()
-
-        self.features = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-
-            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2),
-        )
-
-        self.classifier = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(128 * 16 * 16, 512),
-            nn.ReLU(),
-            nn.Dropout(0.5),
-            nn.Linear(512, num_classes)
-        )
-
-    def forward(self, x):
-        x = self.features(x)
-        x = self.classifier(x)
-        return x
 
 transform = transforms.Compose([
         transforms.Resize((128, 128)),
@@ -59,10 +26,27 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_model():
     global model
-    model = PetClassifier(num_classes=23)
+    model = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
 
-    weights_path = os.path.join(BASE_DIR, 'pet_classifier.pth')
-    state_dict = torch.load(weights_path, map_location=device, weights_only=True)
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Flatten(),
+            nn.Linear(128 * 16 * 16, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, 23)
+    )
+
+    state_dict = torch.load(settings.MODEL_PATH, map_location=device, weights_only=True)
     model.load_state_dict(state_dict)
 
     model = model.to(device)
