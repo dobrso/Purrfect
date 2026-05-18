@@ -204,7 +204,7 @@ def print_statistics(history):
 
 def main():
     DATA_PATH = 'Pet_Breeds'
-    N_EPOCHS = 50
+    N_EPOCHS = 1
     BATCH_SIZE = 16
     LEARNING_RATE = 0.001
 
@@ -225,7 +225,25 @@ def main():
     print(f"Размер тестовой выборки: {len(test_dataset)}")
     print()
 
-    model = PetClassifier(num_classes=len(classes)).to(device)
+    model = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Flatten(),
+            nn.Linear(128 * 16 * 16, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, 23)
+    )
 
     print("Начало обучения...\n")
     history, trained_model = train_model(
@@ -238,7 +256,7 @@ def main():
         device=device
     )
 
-    torch.save(trained_model, 'pet_classifier.pth')
+    torch.save(trained_model.state_dict(), 'pet_classifier.pth')
 
     plot_training_history(history)
 
