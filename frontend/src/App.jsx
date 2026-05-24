@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./components/Layout";
 import { useAuth } from './context/AuthContext';
 import MainPage from "./pages/MainPage";
 import PetProfile from "./pages/PetProfile";
@@ -27,31 +28,33 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/auth" element={<AuthorizationPage />} />
-      <Route path="/registr" element={<RegistrationPage />} />
-      <Route path="/articles" element={<ArticlesPage />} />
-      <Route path="/article/:id" element={<ArticlePage />} />
-      <Route path="/appointment" element={<AppointmentPage />} />
-      <Route path="/budget" element={<BudgetPlanPage />} />
-      <Route path="/pet" element={
-        <PrivateRoute>
-          <PetProfile />
-        </PrivateRoute>
-      } />
-      <Route path="/cabinet" element={
-        <PrivateRoute>
-          <CabinetPage />
-        </PrivateRoute>
-      } />
-      <Route path="/create-article" element={<CreateArticlePage />} />
-      <Route path="/breed-identification" element={<BreedIdentificationPage />} />
-      <Route path="/budget-planner" element={<BudgetPlannerPage />} />
-      <Route path="/marketplace" element={<MarketplacePage />} />
-      <Route path="/marketplace/:id" element={<ProductDetailPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/name-generator" element={<NameGeneratorPage />} />
-      <Route path="/services" element={<ServicesPage />} />
+      <Route element={<Layout />}>  {/* ← оборачиваем все маршруты */}
+        <Route path="/" element={<MainPage />} />
+        <Route path="/auth" element={<AuthorizationPage />} />
+        <Route path="/registr" element={<RegistrationPage />} />
+        <Route path="/articles" element={<ArticlesPage />} />
+        <Route path="/article/:id" element={<ArticlePage />} />
+        <Route path="/appointment" element={<AppointmentPage />} />
+        <Route path="/budget" element={<BudgetPlanPage />} />
+        <Route path="/pet" element={
+          <PrivateRoute>
+            <PetProfile />
+          </PrivateRoute>
+        } />
+        <Route path="/cabinet" element={
+          <PrivateRoute>
+            <CabinetPage />
+          </PrivateRoute>
+        } />
+        <Route path="/create-article" element={<CreateArticlePage />} />
+        <Route path="/breed-identification" element={<BreedIdentificationPage />} />
+        <Route path="/budget-planner" element={<BudgetPlannerPage />} />
+        <Route path="/marketplace" element={<MarketplacePage />} />
+        <Route path="/marketplace/:id" element={<ProductDetailPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/name-generator" element={<NameGeneratorPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+      </Route>
     </Routes>
   );
 }

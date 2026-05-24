@@ -127,23 +127,6 @@ export default function MarketplacePage() {
 
   return (
     <div className="marketplace-page">
-      <header className="marketplace-header">
-        <Link to="/" className="marketplace-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="marketplace-nav">
-          <Link to="/">Главная</Link>
-          <Link to="/cabinet">Личный кабинет</Link>
-          <Link to="/articles">Статьи</Link>
-          <Link to="/marketplace" className="active">Маркетплейс</Link>
-        </nav>
-        <div className="marketplace-user">
-          <div className="marketplace-avatar">П</div>
-          <span>Полина</span>
-        </div>
-      </header>
-
       <main className="marketplace-main">
         <div className="marketplace-hero">
           <div className="marketplace-hero-content">

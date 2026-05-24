@@ -66,16 +66,6 @@ const BudgetPlannerPage = () => {
 
   return (
     <div className="budget-page">
-      <header className="header">
-        <div className="logo">PURRFECT</div>
-        <nav className="nav">
-          <a href="#">Сервисы</a>
-          <a href="#">Статьи</a>
-          <a href="#">О проекте</a>
-        </nav>
-        <button className="login-btn-header">Войти</button>
-      </header>
-
       <div className="center-wrapper">
         <div className="budget-card-horizontal">
           <div className="budget-image">

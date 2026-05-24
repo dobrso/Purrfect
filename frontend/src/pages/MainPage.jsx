@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../styles/MainPage.css";
-import Header from "../components/Header";
 
 export default function MainPage() {
   const popularArticles = [
@@ -23,8 +22,6 @@ export default function MainPage() {
 
   return (
     <>
-      <Header />
-
       {/* HERO */}
       <section className="hero">
         <div className="container hero-grid">

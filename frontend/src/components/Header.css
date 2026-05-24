@@ -1,0 +1,117 @@
+.component-header {
+  background: white;
+  border-bottom: 1px solid #ffe4c4;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.component-logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f97316, #ec489a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.component-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.component-nav a {
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.component-nav a:hover,
+.component-nav a.active {
+  color: #f97316;
+}
+
+.component-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.component-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f97316, #ec489a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.login-btn {
+  background: transparent;
+  border: 1px solid #FFE4C4;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #b87c4e;
+  cursor: pointer;
+}
+.login-btn:hover {
+  background: #FFE4C4;
+  color: #2c3e50;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.login-btn, .logout-btn {
+  background: transparent;
+  border: 1px solid #FFE4C4;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  color: #b87c4e;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-btn:hover, .logout-btn:hover {
+  background: #FFE4C4;
+  color: #2c3e50;
+}
+
+.user-name-btn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: #b87c4e;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+.user-name-btn:hover {
+  text-decoration: underline;
+}

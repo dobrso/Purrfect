@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
-import { useNavigate, Link, NavLink } from 'react-router-dom';
-import { PawPrint, Calendar, Clock, ChevronRight } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { PawPrint, ChevronRight } from 'lucide-react';
 import api from '../api';
 import '../styles/CreateArticlePage.css';
 
 const CreateArticlePage = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    } else {
+      setImageFile(null);
+      setPreviewUrl('');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +36,19 @@ const CreateArticlePage = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
+
     try {
-      const response = await api.post('/articles/', { title, content });
+      const response = await api.post('/articles/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log('Статья создана:', response.data);
       navigate('/articles');
     } catch (err) {
@@ -45,23 +69,6 @@ const CreateArticlePage = () => {
 
   return (
     <div className="article-page">
-      {/* Шапка такая же, как на других страницах */}
-      <header className="article-header">
-        <Link to="/" className="article-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="article-nav">
-          <NavLink to="/">Главная</NavLink>
-          <NavLink to="/cabinet">Личный кабинет</NavLink>
-          <NavLink to="/articles">Статьи</NavLink>
-        </nav>
-        <div className="article-user">
-          <div className="article-avatar">П</div>
-          <span>Полина</span>
-        </div>
-      </header>
-
       <main className="article-main">
         <div className="article-back">
           <Link to="/articles" className="back-link">
@@ -71,14 +78,10 @@ const CreateArticlePage = () => {
 
         <div className="create-article-form-container">
           <h1 className="create-article-title">✍️ Создать новую статью</h1>
-          
-          {error && (
-            <div className="create-article-error">
-              {error}
-            </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="create-article-form">
+          {error && <div className="create-article-error">{error}</div>}
+
+          <form onSubmit={handleSubmit} className="create-article-form" encType="multipart/form-data">
             <div className="form-group">
               <label htmlFor="title">Заголовок статьи</label>
               <input
@@ -105,16 +108,28 @@ const CreateArticlePage = () => {
               />
             </div>
 
-            <div className="create-article-actions">
-              <button 
-                type="submit" 
+            <div className="form-group">
+              <label htmlFor="image">Обложка (картинка)</label>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
                 disabled={loading}
-                className="submit-btn"
-              >
+              />
+              {previewUrl && (
+                <div className="image-preview">
+                  <img src={previewUrl} alt="Предпросмотр" style={{ maxWidth: '200px', marginTop: '10px' }} />
+                </div>
+              )}
+            </div>
+
+            <div className="create-article-actions">
+              <button type="submit" disabled={loading} className="submit-btn">
                 {loading ? 'Публикация...' : 'Опубликовать'}
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => navigate('/articles')}
                 className="cancel-btn"
                 disabled={loading}
@@ -125,7 +140,6 @@ const CreateArticlePage = () => {
           </form>
         </div>
 
-        {/* Блок рекомендации (как на странице статьи) */}
         <div className="read-more-section">
           <h3>🐾 Поделитесь опытом</h3>
           <p>Ваша статья поможет другим заботливым хозяевам</p>

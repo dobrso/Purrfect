@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { recognizeBreed } from '../../services/api'; // путь может отличаться
-import './BreedIdentificationPage.css';
+import { recognizeBreed } from '../api';
+import '../styles/BreedIdentificationPage.css';
+
+const BREED_NAMES = [
+  "abyssinian", "american shorthair", "beagle", "boxer", "bulldog",
+  "chihuahua", "corgi", "dachshund", "german shepherd", "golden retriever",
+  "husky", "labrador", "maine coon", "mumbai cat", "persian cat",
+  "pomeranian", "pug", "ragdoll cat", "rottwiler", "shiba inu",
+  "siamese cat", "sphynx", "yorkshire terrier"
+];
 
 const BreedIdentificationPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,10 +43,12 @@ const BreedIdentificationPage = () => {
 
     try {
       const result = await recognizeBreed(selectedFile);
-      setBreedResult(result.breed);
+      // result = { predicted_class: 5, confidence: 0.93, ... }
+      const breedName = BREED_NAMES[result.predicted_class];
+      setBreedResult(breedName);
       setConfidence(result.confidence);
     } catch (err) {
-      setError(err || 'Ошибка при распознавании породы');
+      setError(err?.message || err || 'Ошибка при распознавании породы');
       console.error('Ошибка:', err);
     } finally {
       setIsLoading(false);
@@ -56,16 +66,6 @@ const BreedIdentificationPage = () => {
 
   return (
     <div className="breed-page">
-      <header className="header">
-        <div className="logo">PURRFECT</div>
-        <nav className="nav">
-          <a href="#">Сервисы</a>
-          <a href="#">Статьи</a>
-          <a href="#">О проекте</a>
-        </nav>
-        <button className="login-btn-header">Войти</button>
-      </header>
-
       <div className="center-wrapper">
         <div className="breed-card-horizontal">
           <div className="breed-image">
@@ -118,7 +118,7 @@ const BreedIdentificationPage = () => {
             {breedResult && (
               <div className="result-box">
                 <p>🐾 Порода: <strong>{breedResult}</strong></p>
-                {confidence && (
+                {confidence !== null && (
                   <p className="confidence">
                     Уверенность: {Math.round(confidence * 100)}%
                   </p>

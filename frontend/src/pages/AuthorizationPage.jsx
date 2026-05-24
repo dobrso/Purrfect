@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AuthorizationPage.css';
-import Header from "../components/Header";
 
-const AuthPage = () => {
+const AuthorizationPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,7 +29,6 @@ const AuthPage = () => {
 
   return (
     <div className="login-page">
-      <Header />
       <div className="center-wrapper">
         <div className="auth-card-horizontal">
           <div className="auth-image">
@@ -93,4 +91,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default AuthorizationPage;
