@@ -5,7 +5,7 @@ class Article(models.Model):
     title = models.CharField('Заголовок', max_length=200)
     content = models.TextField('Содержание', null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles', verbose_name='Автор', null=True, blank=True)
-    preview_image = models.ImageField(null=True, blank=True)
+    image = models.ImageField('Изображение', upload_to='articles/', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Статья'

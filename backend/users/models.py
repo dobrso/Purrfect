@@ -7,7 +7,6 @@ class Profile(models.Model):
     city = models.CharField('Город', max_length=20, null=True, blank=True)
     birth_date = models.DateField('Дата рождения', null=True, blank=True)
     phone_number = models.CharField('Номер телефона', max_length=20, null=True, blank=True)
-    # Еще одно поле с животными!!! o2m
 
     class Meta:
         verbose_name = 'Профиль'
