@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import { recognizeBreed } from '../api';
 import '../styles/BreedIdentificationPage.css';
+
+const BREED_NAMES = [
+  "abyssinian", "american shorthair", "beagle", "boxer", "bulldog",
+  "chihuahua", "corgi", "dachshund", "german shepherd", "golden retriever",
+  "husky", "labrador", "maine coon", "mumbai cat", "persian cat",
+  "pomeranian", "pug", "ragdoll cat", "rottwiler", "shiba inu",
+  "siamese cat", "sphynx", "yorkshire terrier"
+];
 
 const BreedIdentificationPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [breedResult, setBreedResult] = useState('');
+  const [confidence, setConfidence] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // Обработка выбора файла
   const handleFileChange = (e) => {
@@ -14,37 +25,34 @@ const BreedIdentificationPage = () => {
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
-      setBreedResult(''); // сбрасываем предыдущий результат
+      setBreedResult('');
+      setConfidence(null);
+      setError('');
     }
   };
 
-  // Имитация запроса к ML-модели
-  const handleIdentifyBreed = () => {
+  // Отправка фото на бэкенд
+  const handleIdentifyBreed = async () => {
     if (!selectedFile) {
-      alert('Пожалуйста, сначала загрузите фото');
+      setError('Пожалуйста, сначала загрузите фото');
       return;
     }
 
     setIsLoading(true);
-    setBreedResult('');
+    setError('');
 
-    // Симуляция задержки ответа сервера
-    setTimeout(() => {
-      // Список популярных пород для демонстрации
-      const breeds = [
-        'Сибирская кошка',
-        'Мейн-кун',
-        'Британская короткошёрстная',
-        'Шотландская вислоухая',
-        'Сфинкс',
-        'Персидская кошка',
-        'Бенгальская кошка',
-        'Абиссинская кошка'
-      ];
-      const randomBreed = breeds[Math.floor(Math.random() * breeds.length)];
-      setBreedResult(randomBreed);
+    try {
+      const result = await recognizeBreed(selectedFile);
+      // result = { predicted_class: 5, confidence: 0.93, ... }
+      const breedName = BREED_NAMES[result.predicted_class];
+      setBreedResult(breedName);
+      setConfidence(result.confidence);
+    } catch (err) {
+      setError(err?.message || err || 'Ошибка при распознавании породы');
+      console.error('Ошибка:', err);
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   // Очистка загруженного фото
@@ -52,20 +60,12 @@ const BreedIdentificationPage = () => {
     setSelectedFile(null);
     setPreviewUrl(null);
     setBreedResult('');
+    setConfidence(null);
+    setError('');
   };
 
   return (
     <div className="breed-page">
-      <header className="header">
-        <div className="logo">PURRFECT</div>
-        <nav className="nav">
-          <a href="#">Сервисы</a>
-          <a href="#">Статьи</a>
-          <a href="#">О проекте</a>
-        </nav>
-        <button className="login-btn-header">Войти</button>
-      </header>
-
       <div className="center-wrapper">
         <div className="breed-card-horizontal">
           <div className="breed-image">
@@ -101,17 +101,28 @@ const BreedIdentificationPage = () => {
               )}
             </div>
 
+            {error && (
+              <div className="error-message">
+                ⚠️ {error}
+              </div>
+            )}
+
             <button
               onClick={handleIdentifyBreed}
               className="identify-btn"
-              disabled={isLoading}
+              disabled={isLoading || !selectedFile}
             >
-              {isLoading ? 'Определяем...' : 'Определить породу'}
+              {isLoading ? 'Анализируем...' : 'Определить породу'}
             </button>
 
             {breedResult && (
               <div className="result-box">
-                <p>🔍 Порода: <strong>{breedResult}</strong></p>
+                <p>🐾 Порода: <strong>{breedResult}</strong></p>
+                {confidence !== null && (
+                  <p className="confidence">
+                    Уверенность: {Math.round(confidence * 100)}%
+                  </p>
+                )}
               </div>
             )}
           </div>

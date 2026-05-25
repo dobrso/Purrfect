@@ -60,22 +60,6 @@ export default function CartPage() {
   if (cartItems.length === 0) {
     return (
       <div className="cart-page">
-        <header className="cart-header">
-          <Link to="/" className="cart-logo">
-            <PawPrint size={24} />
-            PURRFECT
-          </Link>
-          <nav className="cart-nav">
-            <Link to="/">Главная</Link>
-            <Link to="/cabinet">Личный кабинет</Link>
-            <Link to="/articles">Статьи</Link>
-            <Link to="/marketplace">Маркетплейс</Link>
-          </nav>
-          <div className="cart-user">
-            <div className="cart-avatar">П</div>
-            <span>Полина</span>
-          </div>
-        </header>
         <main className="cart-main">
           <div className="empty-cart">
             <ShoppingCart size={80} color="#d1d5db" />

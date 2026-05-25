@@ -1,6 +1,6 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getCurrentUser, login as apiLogin, register as apiRegister, logout as apiLogout } from '../services/api';
+import { login as apiLogin, register as apiRegister, logout as apiLogout, getCurrentUser } from '../api';
 
 const AuthContext = createContext();
 
@@ -11,24 +11,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        setLoading(false);
-        return;
-      }
-      
-      try {
-        const userData = await getCurrentUser();
+    const loadUser = () => {
+      const token = localStorage.getItem('access_token');
+      const userData = getCurrentUser();
+      if (token && userData) {
         setUser(userData);
-      } catch (error) {
-        console.log('Не удалось загрузить пользователя');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+      } else {
+        if (token) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('user');
+        }
         setUser(null);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
     loadUser();
   }, []);
@@ -45,13 +41,13 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const logout = async () => {
-    await apiLogout();
+  const logout = () => {
+    apiLogout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

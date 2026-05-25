@@ -1,17 +1,26 @@
-import { useParams, Link, NavLink } from "react-router-dom";
-import { 
-  PawPrint, 
-  ArrowLeft, 
-  Calendar, 
-  Clock, 
-  Heart, 
-  Bookmark, 
+import { useParams, Link } from "react-router-dom";
+import {
+  PawPrint,
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Heart,
+  Bookmark,
   Share2,
   ChevronRight
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import api from "../api";
 import "../styles/ArticlePage.css";
+
+// Массив ссылок на картинки-заглушки
+const PLACEHOLDER_IMAGES = [
+  "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1535241749838-299277b6305f?w=800&h=400&fit=crop",
+  "https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=800&h=400&fit=crop"
+];
 
 export default function ArticlePage() {
   const { id } = useParams();
@@ -23,8 +32,7 @@ export default function ArticlePage() {
     const fetchArticle = async () => {
       try {
         const response = await api.get(`/articles/${id}/`);
-        // Бэкенд возвращает { article: {...} }
-        setArticle(response.data.article);
+        setArticle(response.data);
       } catch (err) {
         console.error(err);
         setError('Статья не найдена');
@@ -35,11 +43,14 @@ export default function ArticlePage() {
     fetchArticle();
   }, [id]);
 
+  const getRandomPlaceholder = () => {
+    return PLACEHOLDER_IMAGES[Math.floor(Math.random() * PLACEHOLDER_IMAGES.length)];
+  };
+
   if (loading) return <div className="loading">Загрузка статьи...</div>;
   if (error || !article) {
     return (
       <div className="article-page">
-        <header className="article-header">... (как в вашем компоненте)</header>
         <main className="article-main">
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
             <h2>{error || 'Статья не найдена'}</h2>
@@ -54,22 +65,6 @@ export default function ArticlePage() {
 
   return (
     <div className="article-page">
-      <header className="article-header">
-        <Link to="/" className="article-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="article-nav">
-          <NavLink to="/">Главная</NavLink>
-          <NavLink to="/cabinet">Личный кабинет</NavLink>
-          <NavLink to="/articles">Статьи</NavLink>
-        </nav>
-        <div className="article-user">
-          <div className="article-avatar">П</div>
-          <span>Полина</span>
-        </div>
-      </header>
-
       <main className="article-main">
         <div className="article-back">
           <Link to="/articles" className="back-link">
@@ -77,15 +72,23 @@ export default function ArticlePage() {
           </Link>
         </div>
 
-        {/* Если нет поля image, замените на заглушку или уберите */}
-        <img src={article.image || '/default-article.jpg'} alt={article.title} className="article-hero-image" />
+        {/* Изображение статьи: если есть article.image – берём его, иначе случайную заглушку */}
+        <img
+          src={article.image || getRandomPlaceholder()}
+          alt={article.title}
+          className="article-hero-image"
+        />
 
         <div className="article-author-section">
           <div className="author-info">
-            {/* Если автор приходит как объект с avatar, иначе заглушка */}
-            <img src={article.author?.avatar || '/default-avatar.png'} alt={article.author?.name || 'Автор'} className="author-avatar" />
+            {/* Аватар автора: если есть – показываем, иначе заглушка */}
+            <img
+              src={article.author?.avatar || '/default-avatar.png'}
+              alt={article.author?.username || 'Автор'}
+              className="author-avatar"
+            />
             <div className="author-details">
-              <h3>{article.author?.name || 'Автор'}</h3>
+              <h3>{article.author?.username || 'Автор'}</h3>
               <p>Автор статьи</p>
             </div>
           </div>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/PetProfile.css";
-import Header from "../components/Header"
 
 export default function PetProfile() {
   const [image, setImage] = useState("https://placekitten.com/400/400");
@@ -15,8 +14,6 @@ export default function PetProfile() {
 
   return (
     <div className="page">
-      <Header />
-
       <main className="main">
         <div className="profile-card">
           <h2 className="title">Профиль питомца</h2>

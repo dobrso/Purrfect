@@ -5,23 +5,6 @@ import "../styles/ServicesPage.css";
 export default function ServicesPage() {
   return (
     <div className="services-page">
-      <header className="services-header">
-        <Link to="/" className="services-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="services-nav">
-          <Link to="/">Главная</Link>
-          <Link to="/cabinet">Личный кабинет</Link>
-          <Link to="/articles">Статьи</Link>
-          <Link to="/marketplace">Маркетплейс</Link>
-        </nav>
-        <div className="services-user">
-          <div className="services-avatar">П</div>
-          <span>Полина</span>
-        </div>
-      </header>
-
       <main className="services-main">
         <div className="services-hero">
           <div className="services-hero-content">

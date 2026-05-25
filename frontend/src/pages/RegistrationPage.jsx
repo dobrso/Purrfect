@@ -42,16 +42,6 @@ const RegistrationPage = () => {
 
   return (
     <div className="registration-page">
-      <header className="header">
-        <div className="logo">PURRFECT</div>
-        <nav className="nav">
-          <Link to="/appointment">Сервисы</Link>
-          <Link to="/articles">Статьи</Link>
-          <a href="#">О проекте</a>
-        </nav>
-        <Link to="/auth" className="login-btn-header">Войти</Link>
-      </header>
-
       <div className="center-wrapper">
         <div className="reg-card-horizontal">
           <div className="reg-image">

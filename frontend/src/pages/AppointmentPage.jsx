@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { PawPrint, MapPin, Calendar, Clock, Stethoscope, User, CheckCircle2 } from "lucide-react";
 import "../styles/AppointmentPage.css";
+import Header from "../components/Header";
 
 export default function AppointmentPage() {
   const [selectedPet, setSelectedPet] = useState(null);
@@ -63,19 +64,6 @@ export default function AppointmentPage() {
 
   return (
     <div className="appointment-page">
-      <header className="appointment-header">
-        <Link to="/" className="appointment-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="appointment-nav">
-          <NavLink to="/appointment" className="active">Сервисы</NavLink>
-          <NavLink to="/articles">Статьи</NavLink>
-          <a href="#">О проекте</a>
-        </nav>
-        <Link to="/auth" className="appointment-login">Войти</Link>
-      </header>
-
       <main className="appointment-main">
         {/* Hero Section */}
         <div className="appointment-hero">

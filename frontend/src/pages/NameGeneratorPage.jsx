@@ -119,23 +119,6 @@ export default function NameGeneratorPage() {
 
   return (
     <div className="generator-page">
-      <header className="generator-header">
-        <Link to="/" className="generator-logo">
-          <PawPrint size={24} />
-          PURRFECT
-        </Link>
-        <nav className="generator-nav">
-          <Link to="/">Главная</Link>
-          <Link to="/cabinet">Личный кабинет</Link>
-          <Link to="/articles">Статьи</Link>
-          <Link to="/marketplace">Маркетплейс</Link>
-        </nav>
-        <div className="generator-user">
-          <div className="generator-avatar">П</div>
-          <span>Полина</span>
-        </div>
-      </header>
-
       <main className="generator-main">
         <div className="generator-hero">
           <div className="generator-hero-content">

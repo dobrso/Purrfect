@@ -126,22 +126,6 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="product-detail-page">
-        <header className="product-detail-header">
-          <Link to="/" className="product-detail-logo">
-            <PawPrint size={24} />
-            PURRFECT
-          </Link>
-          <nav className="product-detail-nav">
-            <Link to="/">Главная</Link>
-            <Link to="/cabinet">Личный кабинет</Link>
-            <Link to="/articles">Статьи</Link>
-            <Link to="/marketplace">Маркетплейс</Link>
-          </nav>
-          <div className="product-detail-user">
-            <div className="product-detail-avatar">П</div>
-            <span>Полина</span>
-          </div>
-        </header>
         <main className="product-detail-main">
           <div className="not-found">
             <h2>Товар не найден</h2>
