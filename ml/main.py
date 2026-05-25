@@ -121,7 +121,7 @@ def train_model(model, train_dataset, test_dataset, n_epochs, batch_size, learni
               f"test_loss: {test_loss:.6f} | "
               f"test_acc: {test_acc:.6f}")
 
-    return history
+    return history, model
 
 def plot_training_history(history):
     train_acc_percent = [acc * 100 for acc in history["train_acc"]]
@@ -204,7 +204,7 @@ def print_statistics(history):
 
 def main():
     DATA_PATH = 'Pet_Breeds'
-    N_EPOCHS = 2
+    N_EPOCHS = 50
     BATCH_SIZE = 16
     LEARNING_RATE = 0.001
 
@@ -225,10 +225,28 @@ def main():
     print(f"Размер тестовой выборки: {len(test_dataset)}")
     print()
 
-    model = PetClassifier(num_classes=len(classes)).to(device)
+    model = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Flatten(),
+            nn.Linear(128 * 16 * 16, 512),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(512, 23)
+    )
 
     print("Начало обучения...\n")
-    history = train_model(
+    history, trained_model = train_model(
         model=model,
         train_dataset=train_dataset,
         test_dataset=test_dataset,
@@ -237,6 +255,8 @@ def main():
         learning_rate=LEARNING_RATE,
         device=device
     )
+
+    torch.save(trained_model.state_dict(), 'pet_classifier.pth')
 
     plot_training_history(history)
 
