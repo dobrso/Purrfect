@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions
+from rest_framework import permissions, status
 from drf_spectacular.utils import extend_schema
 
 from .models import Category, Product, Cart, CartItem
@@ -126,6 +126,7 @@ class CartItemAPIView(APIView):
         cart = self.get_cart(request.user)
         cart_item = self.get_cart_item(item_id, cart)
         cart_item.delete()
+        return Response(status=status.HTTP_200_OK)
 
 class CartClearAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -142,3 +143,4 @@ class CartClearAPIView(APIView):
     def delete(self, request):
         cart = self.get_cart(request.user)
         cart.cart_items.all().delete()
+        return Response(status=status.HTTP_200_OK)
