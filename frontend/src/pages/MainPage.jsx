@@ -63,23 +63,23 @@ export default function MainPage() {
             <div className="cards">
               <div className="card">
                 <div className="icon">📄</div>
-                <p>Статьи и блог</p>
+                <Link to="/articles" style={{ textDecoration: 'none', color: 'black'}}>Статьи и блог</Link>
               </div>
               <div className="card">
                 <div className="icon">🐾</div>
-                <p>Распознавание породы</p>
+                <Link to="/breed-identification" style={{ textDecoration: 'none', color: 'black'}}>Распознование породы</Link>
               </div>
               <div className="card">
                 <div className="icon">💳</div>
-                <p>Прогноз трат</p>
+                <Link to="/budget-planner" style={{ textDecoration: 'none', color: 'black'}}>Прогноз трат</Link>
               </div>
               <div className="card">
                 <div className="icon">💬</div>
-                <p>Онлайн-консультация</p>
+                <Link to="/appointment" style={{ textDecoration: 'none', color: 'black'}}>Онлайн-консультация</Link>
               </div>
               <div className="card">
                 <div className="icon">🔎</div>
-                <p>Генератор кличек</p>
+                <Link to="/name-generator" style={{ textDecoration: 'none', color: 'black'}}>Генератор кличек</Link>
               </div>
               <div className="card">
                 <div className="icon">✂</div>
